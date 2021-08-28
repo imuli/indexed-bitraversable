@@ -1,0 +1,16 @@
+name: indexed-bitraversable
+version: 0.1.0.0
+synopsis: Indexed versions of Bitravarsable, Bifoldable, and Bifunctor.
+maintainer: Imuli <i@imu.li>
+github: imuli/indexed-bitraversable
+license: PublicDomain
+license-file: UNLICENSE
+
+ghc-options: -Wall
+
+dependencies:
+  - base
+  - composition
+
+library:
+  source-dirs: src

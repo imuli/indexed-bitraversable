@@ -1,0 +1,33 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           indexed-bitraversable
+version:        0.1.0.0
+synopsis:       Indexed versions of Bitravarsable, Bifoldable, and Bifunctor.
+homepage:       https://github.com/imuli/indexed-bitraversable#readme
+bug-reports:    https://github.com/imuli/indexed-bitraversable/issues
+maintainer:     Imuli <i@imu.li>
+license:        PublicDomain
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/imuli/indexed-bitraversable
+
+library
+  exposed-modules:
+      Data.Bifoldable.WithIndex
+      Data.Bifunctor.WithIndex
+      Data.Bitraversable.WithIndex
+  other-modules:
+      Paths_indexed_bitraversable
+  hs-source-dirs:
+      src
+  ghc-options: -Wall
+  build-depends:
+      base
+    , composition
+  default-language: Haskell2010
