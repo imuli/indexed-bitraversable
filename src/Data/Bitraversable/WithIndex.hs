@@ -18,9 +18,9 @@ module Data.Bitraversable.WithIndex
   , ibitraverseConstant
   , ibitraverseVia
     -- * helpers for implementing other classes
-  , bitraverseFromTraversableWithIndex
-  , ibimapFromTraversableWithIndex
-  , ibifoldMapFromTraversableWithIndex
+  , bitraverseHelper
+  , ibimapHelper
+  , ibifoldMapHelper
   ) where
 
 import           Data.Bitraversable (Bitraversable, bitraverse)
@@ -28,7 +28,7 @@ import           Data.Composition ((.*))
 import           Data.Functor.Const (Const(Const), getConst)
 import           Data.Functor.Identity (Identity(Identity), runIdentity)
 
--- | 'Bitraverse' with an extra index argument.
+-- | 'Bitraversable' with an extra index argument.
 --
 -- Instances must satisfy the transformed 'Bitraversable' laws:
 --
@@ -100,13 +100,13 @@ ibitraverseVia via f g x = let i = via x in bitraverse (f i) (g i) x
 -- * Helpers for implementing other classes.
 
 -- | Implement 'Bitraversable' via 'BitraversableWithIndex'.
-bitraverseFromTraversableWithIndex :: (BitraversableWithIndex i f, Applicative m) => (a -> m s) -> (b -> m t) -> f a b -> m (f s t)
-bitraverseFromTraversableWithIndex f g = ibitraverse (const f) (const g)
+bitraverseHelper :: (BitraversableWithIndex i f, Applicative m) => (a -> m s) -> (b -> m t) -> f a b -> m (f s t)
+bitraverseHelper f g = ibitraverse (const f) (const g)
 
 -- | Implement 'Data.Bifunctor.WithIndex.ibimap' via 'BitraversableWithIndex'.
-ibimapFromTraversableWithIndex :: BitraversableWithIndex i f => (i -> a -> s) -> (i -> b -> t) -> f a b -> f s t
-ibimapFromTraversableWithIndex f g = runIdentity . ibitraverse (Identity .* f) (Identity .* g)
+ibimapHelper :: BitraversableWithIndex i f => (i -> a -> s) -> (i -> b -> t) -> f a b -> f s t
+ibimapHelper f g = runIdentity . ibitraverse (Identity .* f) (Identity .* g)
 
 -- | Implement 'Data.Bifoldable.WithIndex.ibifoldMap' via 'BitraversableWithIndex'.
-ibifoldMapFromTraversableWithIndex :: (BitraversableWithIndex i f, Monoid m) => (i -> a -> m) -> (i -> b -> m) -> f a b -> m
-ibifoldMapFromTraversableWithIndex f g = getConst . ibitraverse (Const .* f) (Const .* g)
+ibifoldMapHelper :: (BitraversableWithIndex i f, Monoid m) => (i -> a -> m) -> (i -> b -> m) -> f a b -> m
+ibifoldMapHelper f g = getConst . ibitraverse (Const .* f) (Const .* g)

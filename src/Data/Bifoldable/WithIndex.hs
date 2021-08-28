@@ -17,7 +17,7 @@ module Data.Bifoldable.WithIndex
   , ibifor_
   , iforfirst_
   , iforsecond_
-    -- * Helpers for implementing 'BifunctorWithIndex'.
+    -- * Helpers for implementing 'BifoldableWithIndex'.
   , ibifoldMapConstant
   , ibifoldMapVia
   ) where
@@ -29,7 +29,7 @@ import           Data.Monoid (Endo(Endo), appEndo)
 
 -- | 'Bifoldable' with an extra index argument.
 --
--- Instances must satisfy the transformed 'Bifoldable'-'Bifunctor' laws:
+-- Instances must satisfy the transformed 'Bifoldable'-'Data.Bifuctor.Bifunctor' laws:
 --
 -- @
 -- ibifoldMap f g ≡ bifold . ibimap f g
